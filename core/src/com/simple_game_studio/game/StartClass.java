@@ -9,6 +9,8 @@ import com.simple_game_studio.game.tools.GameStateManager;
 
 public class StartClass extends ApplicationAdapter {
 	private GameStateManager gsm;
+	public static final int WIDTH = 900;
+	public static final int HEIGHT = 500;
 
 	SpriteBatch batch;
 
