@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -36,51 +37,46 @@ public class LevelsState extends State {
     Rectangle lbl5;
     Rectangle lbl6;
 
-    int count  = 0;
-
     public LevelsState(GameStateManager gsm) {
         super(gsm);
         System.out.println("start levels state");
         camera.setToOrtho(false, StartClass.WIDTH, StartClass.HEIGHT);
 
-        background = new Texture("levels_menu_bg.png");
-        btn1 = new Texture("lbl4.png");
-        btn2 = new Texture("lbl5.png");
-        btn3 = new Texture("lbl6.png");
-        btn4 = new Texture("lbl1.png");
-        btn5 = new Texture("lbl2.png");
-        btn6 = new Texture("lbl3.png");
+        background = new Texture("levels/levels_menu_bg.png");
+        btn1 = new Texture("levels/lvl1/lbl1.png");
+        btn2 = new Texture("levels/lvl2/lbl2.png");
+        btn3 = new Texture("levels/lvl3/lbl3.png");
+        btn4 = new Texture("levels/lvl4/lbl4.png");
+        btn5 = new Texture("levels/lvl5/lbl5.png");
+        btn6 = new Texture("levels/lvl6/lbl6.png");
 
-        lbl1 = new Rectangle(200, 100, 100, 100);
-        lbl2 = new Rectangle(350, 100, 100, 100);
-        lbl3 = new Rectangle(500, 100, 100, 100);
-        lbl4 = new Rectangle(200, 300, 100, 100);
-        lbl5 = new Rectangle(350, 300, 100, 100);
-        lbl6 = new Rectangle(500, 300, 100, 100);
+        lbl1 = new Rectangle(200, 300, 100, 100);
+        lbl2 = new Rectangle(350, 300, 100, 100);
+        lbl3 = new Rectangle(500, 300, 100, 100);
+        lbl4 = new Rectangle(200, 100, 100, 100);
+        lbl5 = new Rectangle(350, 100, 100, 100);
+        lbl6 = new Rectangle(500, 100, 100, 100);
     }
 
     @Override
     protected void handleInput() {
 
-        if (Gdx.input.isTouched()) {
-            count++;
-            if (count > 5) {
-                int x = Gdx.input.getX();
-                int y = Gdx.input.getY();
-                System.out.println("x: " + x + "\ny: " + y);
-                if ((x >= lbl1.x && x <= lbl1.x + 100) && (y >= lbl1.y && y <= lbl1.y + 100))
-                    gsm.set(new Level_1_State(gsm));
-                else if ((x >= lbl2.x && x <= lbl2.x + 100) && (y >= lbl2.y && y <= lbl2.y + 100))
-                    gsm.set(new Level_2_State(gsm));
-                else if ((x >= lbl3.x && x <= lbl3.x + 100) && (y >= lbl3.y && y <= lbl3.y + 100))
-                    gsm.set(new Level_3_State(gsm));
-                else if ((x >= lbl4.x && x <= lbl4.x + 100) && (y >= lbl4.y && y <= lbl4.y + 100))
-                    gsm.set(new Level_4_State(gsm));
-                else if ((x >= lbl5.x && x <= lbl5.x + 100) && (y >= lbl5.y && y <= lbl5.y + 100))
-                    gsm.set(new Level_5_State(gsm));
-                else if ((x >= lbl6.x && x <= lbl6.x + 100) && (y >= lbl6.y && y <= lbl6.y + 100))
-                    gsm.set(new Level_6_State(gsm));
-            }
+        if (Gdx.input.justTouched()) {
+            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            camera.unproject(touchPos);
+
+            if ((touchPos.x >= lbl1.x && touchPos.x <= lbl1.x + 100) && (touchPos.y >= lbl1.y && touchPos.y <= lbl1.y + 100))
+                gsm.set(new Level_1_State(gsm));
+            else if ((touchPos.x >= lbl2.x && touchPos.x <= lbl2.x + 100) && (touchPos.y >= lbl2.y && touchPos.y <= lbl2.y + 100))
+                gsm.set(new Level_2_State(gsm));
+            else if ((touchPos.x >= lbl3.x && touchPos.x <= lbl3.x + 100) && (touchPos.y >= lbl3.y && touchPos.y <= lbl3.y + 100))
+                gsm.set(new Level_3_State(gsm));
+            else if ((touchPos.x >= lbl4.x && touchPos.x <= lbl4.x + 100) && (touchPos.y >= lbl4.y && touchPos.y <= lbl4.y + 100))
+                gsm.set(new Level_4_State(gsm));
+            else if ((touchPos.x >= lbl5.x && touchPos.x <= lbl5.x + 100) && (touchPos.y >= lbl5.y && touchPos.y <= lbl5.y + 100))
+                gsm.set(new Level_5_State(gsm));
+            else if ((touchPos.x >= lbl6.x && touchPos.x <= lbl6.x + 100) && (touchPos.y >= lbl6.y && touchPos.y <= lbl6.y + 100))
+                gsm.set(new Level_6_State(gsm));
         }
     }
 

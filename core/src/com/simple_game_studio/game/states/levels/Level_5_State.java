@@ -12,7 +12,7 @@ public class Level_5_State extends State {
         super(gsm);
         System.out.println("start lvl5");
         camera.setToOrtho(false, 100, 100);
-        background = new Texture("lbl5.png");
+        background = new Texture("levels/lvl5/lbl5.png");
     }
 
     @Override
