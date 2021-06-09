@@ -1,26 +1,18 @@
 package com.simple_game_studio.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.simple_game_studio.game.StartClass;
-import com.simple_game_studio.game.states.levels.Level_1_State;
-import com.simple_game_studio.game.states.levels.Level_2_State;
-import com.simple_game_studio.game.states.levels.Level_3_State;
-import com.simple_game_studio.game.states.levels.Level_4_State;
-import com.simple_game_studio.game.states.levels.Level_5_State;
-import com.simple_game_studio.game.states.levels.Level_6_State;
-import com.simple_game_studio.game.tools.GameStateManager;
-import com.simple_game_studio.game.tools.State;
+import com.simple_game_studio.game.states.levels.state1;
 
-public class LevelsState extends State {
+public class LevelsState implements Screen {
+    private StartClass game;
+
+    private OrthographicCamera camera;
 
     Texture background;
     Texture btn1;
@@ -37,10 +29,11 @@ public class LevelsState extends State {
     Rectangle lbl5;
     Rectangle lbl6;
 
-    public LevelsState(GameStateManager gsm) {
-        super(gsm);
+    public LevelsState(StartClass game) {
+        this.game = game;
         System.out.println("start levels state");
-        camera.setToOrtho(false, StartClass.WIDTH, StartClass.HEIGHT);
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 900, 500);
 
         background = new Texture("levels/levels_menu_bg.png");
         btn1 = new Texture("levels/lvl1/lbl1.png");
@@ -58,7 +51,7 @@ public class LevelsState extends State {
         lbl6 = new Rectangle(500, 100, 100, 100);
     }
 
-    @Override
+
     protected void handleInput() {
 
         if (Gdx.input.justTouched()) {
@@ -66,38 +59,67 @@ public class LevelsState extends State {
             camera.unproject(touchPos);
 
             if ((touchPos.x >= lbl1.x && touchPos.x <= lbl1.x + 100) && (touchPos.y >= lbl1.y && touchPos.y <= lbl1.y + 100))
-                gsm.set(new Level_1_State(gsm));
-            else if ((touchPos.x >= lbl2.x && touchPos.x <= lbl2.x + 100) && (touchPos.y >= lbl2.y && touchPos.y <= lbl2.y + 100))
-                gsm.set(new Level_2_State(gsm));
-            else if ((touchPos.x >= lbl3.x && touchPos.x <= lbl3.x + 100) && (touchPos.y >= lbl3.y && touchPos.y <= lbl3.y + 100))
-                gsm.set(new Level_3_State(gsm));
-            else if ((touchPos.x >= lbl4.x && touchPos.x <= lbl4.x + 100) && (touchPos.y >= lbl4.y && touchPos.y <= lbl4.y + 100))
-                gsm.set(new Level_4_State(gsm));
-            else if ((touchPos.x >= lbl5.x && touchPos.x <= lbl5.x + 100) && (touchPos.y >= lbl5.y && touchPos.y <= lbl5.y + 100))
-                gsm.set(new Level_5_State(gsm));
-            else if ((touchPos.x >= lbl6.x && touchPos.x <= lbl6.x + 100) && (touchPos.y >= lbl6.y && touchPos.y <= lbl6.y + 100))
-                gsm.set(new Level_6_State(gsm));
+               game.setScreen(new state1(game));
+//            else if ((touchPos.x >= lbl2.x && touchPos.x <= lbl2.x + 100) && (touchPos.y >= lbl2.y && touchPos.y <= lbl2.y + 100))
+//                gsm.set(new Level_2_State(gsm));
+//            else if ((touchPos.x >= lbl3.x && touchPos.x <= lbl3.x + 100) && (touchPos.y >= lbl3.y && touchPos.y <= lbl3.y + 100))
+//                gsm.set(new Level_3_State(gsm));
+//            else if ((touchPos.x >= lbl4.x && touchPos.x <= lbl4.x + 100) && (touchPos.y >= lbl4.y && touchPos.y <= lbl4.y + 100))
+//                gsm.set(new Level_4_State(gsm));
+//            else if ((touchPos.x >= lbl5.x && touchPos.x <= lbl5.x + 100) && (touchPos.y >= lbl5.y && touchPos.y <= lbl5.y + 100))
+//                gsm.set(new Level_5_State(gsm));
+//            else if ((touchPos.x >= lbl6.x && touchPos.x <= lbl6.x + 100) && (touchPos.y >= lbl6.y && touchPos.y <= lbl6.y + 100))
+//                gsm.set(new Level_6_State(gsm));
         }
     }
 
-    @Override
+
     public void update(float dt) {
         handleInput();
     }
 
-    @Override
-    public void render(SpriteBatch sb) {
-        sb.setProjectionMatrix(camera.combined);
 
-        sb.begin();
-        sb.draw(background, 0, 0);
-        sb.draw(btn1, lbl1.x, lbl1.y);
-        sb.draw(btn2, lbl2.x, lbl2.y);
-        sb.draw(btn3, lbl3.x, lbl3.y);
-        sb.draw(btn4, lbl4.x, lbl4.y);
-        sb.draw(btn5, lbl5.x, lbl5.y);
-        sb.draw(btn6, lbl6.x, lbl6.y);
-        sb.end();
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+        game.batch.setProjectionMatrix(camera.combined);
+
+        game.batch.begin();
+        game.batch.draw(background, 0, 0);
+        game.batch.draw(btn1, lbl1.x, lbl1.y);
+        game.batch.draw(btn2, lbl2.x, lbl2.y);
+        game.batch.draw(btn3, lbl3.x, lbl3.y);
+        game.batch.draw(btn4, lbl4.x, lbl4.y);
+        game.batch.draw(btn5, lbl5.x, lbl5.y);
+        game.batch.draw(btn6, lbl6.x, lbl6.y);
+        game.batch.end();
+
+        update(delta);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override

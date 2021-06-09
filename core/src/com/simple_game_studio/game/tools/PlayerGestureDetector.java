@@ -2,10 +2,13 @@ package com.simple_game_studio.game.tools;
 
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
-import com.simple_game_studio.game.sprites.Player;
+import com.simple_game_studio.game.Sprites.Player;
 
 public class PlayerGestureDetector implements GestureDetector.GestureListener {
     private Player mPlayer;
+    public static boolean now_deltaXRight = false;
+    public static boolean now_deltaXLeft = false;
+
 
     public PlayerGestureDetector (Player player) {
         mPlayer = player;
@@ -18,7 +21,7 @@ public class PlayerGestureDetector implements GestureDetector.GestureListener {
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        mPlayer.jump();
+//        mPlayer.b2body.applyLinearImpulse(new Vector2(0,4f), mPlayer.b2body.getWorldCenter(), true);
         return true;
     }
 
@@ -34,15 +37,30 @@ public class PlayerGestureDetector implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        if (deltaX > 0) mPlayer.move_right();
-        else if (deltaX < 0) mPlayer.move_left();
+
+//
+//        if (deltaX < -10) {
+//            now_deltaXRight = false;
+//            now_deltaXLeft = true;
+//        } else if (deltaX > 10) {
+//            now_deltaXRight = true;
+//            now_deltaXLeft = false;
+//        }
+//
+//
+//        if (deltaY > 10) {
+//            now_deltaXRight = false;
+//            now_deltaXLeft = false;
+//        }
+
+
 
         return true;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
-        mPlayer.stop();
+      //  mPlayer.stop();
         return true;
     }
 

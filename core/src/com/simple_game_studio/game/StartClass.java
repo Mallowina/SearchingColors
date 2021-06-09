@@ -1,41 +1,37 @@
 package com.simple_game_studio.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.simple_game_studio.game.states.MenuState;
-import com.simple_game_studio.game.tools.GameStateManager;
 
-public class StartClass extends ApplicationAdapter {
-	private GameStateManager gsm;
-	public static final int WIDTH = 900;
-	public static final int HEIGHT = 500;
+public class StartClass extends Game {
+	public static final int V_WIDTH = 750;
+	public static final int V_HEIGHT = 423;
+	public static final float PPM = 100;
 
-	SpriteBatch batch;
+	public static final short DEFAULT_BIT = 1;
+	public static final short PLAYER_BIT = 2;
+	public static final short MESSAGE_BIT = 4;
+	public static final short GROUND_BIT = 8;
+	public static final short DESTROYED_BIT = 16;
+
+	public SpriteBatch batch;
 
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		gsm = new GameStateManager();
-		System.out.println("dispose StartClass");
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		/*Starting MenuState*/
-		gsm.push(new MenuState(gsm));
+		setScreen(new MenuState(this));
 	}
 
 	@Override
 	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		gsm.update(Gdx.graphics.getDeltaTime());
-		gsm.render(batch);
+		super.render();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-
 	}
 }
