@@ -56,7 +56,11 @@ public class Player extends Sprite {
         shape.setRadius(15 / StartClass.PPM);
 
         fdef.filter.categoryBits = StartClass.PLAYER_BIT;
-        fdef.filter.maskBits = StartClass.DEFAULT_BIT | StartClass.GROUND_BIT | StartClass.MESSAGE_BIT;
+        fdef.filter.maskBits = StartClass.DEFAULT_BIT
+                            | StartClass.GROUND_BIT
+                            | StartClass.MESSAGE_BIT
+                            | StartClass.SPIKE_BIT;
+
 
         /***/
 
@@ -74,13 +78,7 @@ public class Player extends Sprite {
         b2body.createFixture(fdef).setUserData("right");
     }
 
-//    @Override
-//    public void draw(Batch batch) {
-////        super.draw(batch);
-////        batch.begin();
-//        batch.draw(playerStand, b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-////        batch.end();
-//    }
+
 
     public void update(float dt) {
         if (Control.RIGHT && b2body.getLinearVelocity().x <= 2) b2body.applyLinearImpulse(new Vector2(0.1f, 0), b2body.getWorldCenter(), true);

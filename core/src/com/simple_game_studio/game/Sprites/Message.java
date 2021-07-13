@@ -24,5 +24,6 @@ public class Message extends InteractiveTileObject{
     public void onRightHit() {
         Gdx.app.log("Message", "Collision");
         setCategoryFilter(StartClass.DESTROYED_BIT);
+        StartClass.STORY_STATE = true;
     }
 }

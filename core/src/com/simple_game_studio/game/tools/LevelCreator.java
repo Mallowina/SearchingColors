@@ -36,7 +36,7 @@ public abstract class LevelCreator implements Screen {
     //sprites
     protected Player player;
 
-    GestureDetector gestureDetector;
+//    GestureDetector gestureDetector;
 
 
     public LevelCreator(StartClass game) {
@@ -53,8 +53,8 @@ public abstract class LevelCreator implements Screen {
 
         player = new Player(world);
 
-        gestureDetector = new GestureDetector(new PlayerGestureDetector(player));
-        Gdx.input.setInputProcessor(gestureDetector);
+//        gestureDetector = new GestureDetector(new PlayerGestureDetector(player));
+//        Gdx.input.setInputProcessor(gestureDetector);
 
         control = new Control(game.batch);
 
@@ -97,8 +97,14 @@ public abstract class LevelCreator implements Screen {
         player.draw(game.batch);
         game.batch.end();
 
-        control.update(delta);
-        control.stage.draw();
+        if (!StartClass.STORY_STATE) {
+            control.update(delta);
+            control.stage.draw();
+        } else {
+            Control.UP = false;
+            Control.LEFT = false;
+            Control.RIGHT = false;
+        }
 
         player.update(delta);
     }

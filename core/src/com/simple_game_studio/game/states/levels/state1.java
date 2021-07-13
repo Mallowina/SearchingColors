@@ -1,15 +1,18 @@
 package com.simple_game_studio.game.states.levels;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.simple_game_studio.game.Screens.Control;
+import com.simple_game_studio.game.Sprites.Spike;
 import com.simple_game_studio.game.StartClass;
 import com.simple_game_studio.game.tools.B2WorldCreator;
-import com.simple_game_studio.game.tools.PlayerGestureDetector;
 import com.simple_game_studio.game.tools.WorldContactListener;
 
 import com.simple_game_studio.game.tools.LevelCreator;
 
 public class state1 extends LevelCreator {
+
+    private Spike spike;
 
     public state1(StartClass game) {
         super(game);
@@ -17,15 +20,11 @@ public class state1 extends LevelCreator {
 
         map = mapLoader.load("levels/lvl1/lvl1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/StartClass.PPM);
-
-        PlayerGestureDetector.now_deltaXLeft = false;
-        PlayerGestureDetector.now_deltaXRight = false;
-
         new B2WorldCreator(world, map);
-
         control = new Control(game.batch);
-
         world.setContactListener(new WorldContactListener());
+
+        spike = new Spike(world, map, 50, 180);
     }
 
     @Override
@@ -41,11 +40,21 @@ public class state1 extends LevelCreator {
     @Override
     public void update(float dt) {
         super.update(dt);
+
+
+
+        spike.update(dt);
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
+
+        b2dr.render(world, camera.combined);
+        game.batch.setProjectionMatrix(camera.combined);
+        game.batch.begin();
+        spike.draw(game.batch);
+        game.batch.end();
     }
 
     @Override

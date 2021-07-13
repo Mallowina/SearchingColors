@@ -70,7 +70,7 @@ public class Control implements Disposable{
         btn_up.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                UP = true;
+                if (!StartClass.STORY_STATE) UP = true;
             }
         });
 
@@ -102,7 +102,9 @@ public class Control implements Disposable{
         } else if (btn_left.isPressed()) {
             LEFT = true;
             RIGHT = false;
-        } else {
+        }
+        else {
+            btn_up.getClickListener().inTapSquare();
             RIGHT = false;
             LEFT = false;
         }

@@ -14,6 +14,9 @@ public class StartClass extends Game {
 	public static final short MESSAGE_BIT = 4;
 	public static final short GROUND_BIT = 8;
 	public static final short DESTROYED_BIT = 16;
+	public static final short SPIKE_BIT = 32;
+
+	public static boolean STORY_STATE = false;
 
 	public SpriteBatch batch;
 
