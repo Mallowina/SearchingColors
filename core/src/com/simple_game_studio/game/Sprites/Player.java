@@ -33,7 +33,7 @@ public class Player extends Sprite {
 
     public Player(World world) {
         this.world = world;
-        atlas = new TextureAtlas(Gdx.files.internal("player.pack"));
+        atlas = new TextureAtlas(Gdx.files.internal("player/player.pack"));
         definePlayer();
 
 
