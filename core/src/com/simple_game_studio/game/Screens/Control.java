@@ -43,7 +43,7 @@ public class Control implements Disposable{
         Gdx.input.setInputProcessor(stage);
 
         /**CREATING BUTTONS*/
-        buttonsAtlas = new TextureAtlas("button.pack"); //** button atlas image **//
+        buttonsAtlas = new TextureAtlas("buttons/packs/button_move.pack"); //** button atlas image **//
         buttonSkin = new Skin();
         buttonSkin.addRegions(buttonsAtlas); //** skins for on and off **//
         font = new BitmapFont(); //** font **//

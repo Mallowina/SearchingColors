@@ -21,6 +21,20 @@ public class StartClass extends Game {
 	public SpriteBatch batch;
 
 
+	/**var to return on prev state **/
+	public enum PrevStates {
+		MAIN_MENU
+	}
+
+	public void changeState(PrevStates prev_state) {
+		switch (prev_state) {
+			case MAIN_MENU: {
+				this.setScreen(new MenuState(this));
+				break;
+			}
+		}
+	}
+
 
 	@Override
 	public void create () {

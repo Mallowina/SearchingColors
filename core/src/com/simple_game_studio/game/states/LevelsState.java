@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.simple_game_studio.game.Screens.BackScreen;
 import com.simple_game_studio.game.StartClass;
 import com.simple_game_studio.game.states.levels.state1;
 
 public class LevelsState implements Screen {
     private StartClass game;
+    private BackScreen backScreen;
 
     private OrthographicCamera camera;
 
@@ -30,8 +32,12 @@ public class LevelsState implements Screen {
     Rectangle lbl6;
 
     public LevelsState(StartClass game) {
-        this.game = game;
         System.out.println("start levels state");
+
+        this.game = game;
+
+        backScreen = new BackScreen(game.batch, game);
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 900, 500);
 
@@ -98,6 +104,9 @@ public class LevelsState implements Screen {
         game.batch.draw(btn5, lbl5.x, lbl5.y);
         game.batch.draw(btn6, lbl6.x, lbl6.y);
         game.batch.end();
+
+        backScreen.update(delta);
+        backScreen.stage.draw();
 
         update(delta);
     }

@@ -1,13 +1,13 @@
 
-buttons_main_menu.png
+button_executed.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-start
+previous
   rotate: false
   xy: 1, 67
-  size: 128, 128
-  orig: 128, 128
+  size: 512, 512
+  orig: 512, 512
   offset: 0, 0
   index: -1
 settings

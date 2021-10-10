@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -58,30 +59,29 @@ public class MenuState implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-        Table table = new Table();
-        table.top();
-        table.setFillParent(true);
+        font = new BitmapFont();
 
-
-        buttonsAtlas = new TextureAtlas("buttons_main_menu/buttons_main_menu.pack");
+        buttonsAtlas = new TextureAtlas("buttons/packs/button_executed.pack");
         buttonSkin = new Skin();
         buttonSkin.addRegions(buttonsAtlas);
-        font = new BitmapFont();
         TextButton.TextButtonStyle style1 = new TextButton.TextButtonStyle();
         style1.up = buttonSkin.getDrawable("settings");
         style1.font = font;
 
         buttonSettings = new TextButton("", style1);
-        buttonSettings.setHeight(20);
-        buttonSettings.setWidth(20);
+        buttonSettings.setHeight(40);
+        buttonSettings.setWidth(40);
 
+        buttonsAtlas = new TextureAtlas("buttons/packs/button_main_menu.pack");
+        buttonSkin = new Skin();
+        buttonSkin.addRegions(buttonsAtlas);
         TextButton.TextButtonStyle style2 = new TextButton.TextButtonStyle();
         style2.up = buttonSkin.getDrawable("start");
         style2.font = font;
 
         buttonStart = new TextButton("", style2);
-        buttonStart.setHeight(20);
-        buttonStart.setWidth(40);
+        buttonStart.setHeight(140);
+        buttonStart.setWidth(160);
 
         buttonSettings.addListener(new ClickListener() {
             @Override
@@ -98,11 +98,17 @@ public class MenuState implements Screen {
             }
         });
 
-        table.add(buttonSettings).expandX().padTop(10);
-        table.row();
-        table.add(buttonStart).expandX().padTop(100);
 
-        stage.addActor(table);
+        /*BUTTONS POSITION*/
+        buttonSettings.setPosition(StartClass.V_WIDTH - 70, StartClass.V_HEIGHT - 60);
+        buttonStart.setPosition(StartClass.V_WIDTH / 2 - buttonStart.getWidth() / 2, 20);
+
+        Group btn_menu_group = new Group();
+        btn_menu_group.addActor(buttonSettings);
+        btn_menu_group.addActor(buttonStart);
+
+
+        stage.addActor(btn_menu_group);
     }
 
 
