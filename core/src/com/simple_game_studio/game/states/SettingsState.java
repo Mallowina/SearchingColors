@@ -3,14 +3,14 @@ package com.simple_game_studio.game.states;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.simple_game_studio.game.Screens.BackScreen;
 import com.simple_game_studio.game.StartClass;
+import com.simple_game_studio.game.screens.SettingsScreen;
 
 public class SettingsState implements Screen {
     private StartClass game;
+    private SettingsScreen settingsScreen;
+
     private OrthographicCamera camera;
-    private BackScreen backScreen;
 
     Texture background;
 
@@ -18,13 +18,14 @@ public class SettingsState implements Screen {
         System.out.println("start settings state");
 
         this.game = game;
-
-        backScreen = new BackScreen(game.batch, game);
+        settingsScreen = new SettingsScreen(game.batch);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, StartClass.V_WIDTH, StartClass.V_HEIGHT);
 
-        background = new Texture("levels/levels_menu_bg.png");
+        background = new Texture("images/main_menu_bg.png");
+
+
     }
 
 
@@ -42,9 +43,11 @@ public class SettingsState implements Screen {
         game.batch.draw(background, 0, 0);
         game.batch.end();
 
-        backScreen.update(delta);
-        backScreen.stage.draw();
+        settingsScreen.stage.act();
+        settingsScreen.stage.draw();
+        settingsScreen.update(delta);
     }
+
 
     @Override
     public void resize(int width, int height) {

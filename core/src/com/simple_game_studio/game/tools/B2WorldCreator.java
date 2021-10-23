@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.simple_game_studio.game.Sprites.Ground;
-import com.simple_game_studio.game.Sprites.Message;
+import com.simple_game_studio.game.sprites.Ground;
+import com.simple_game_studio.game.sprites.Message;
 import com.simple_game_studio.game.StartClass;
 
 public class B2WorldCreator {

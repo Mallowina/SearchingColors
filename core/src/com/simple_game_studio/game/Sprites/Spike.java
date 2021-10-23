@@ -1,4 +1,4 @@
-package com.simple_game_studio.game.Sprites;
+package com.simple_game_studio.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -37,8 +37,8 @@ public class Spike extends Sprite {
         defineSpike();
 
         stateTime = 0;
-        stateBig = new TextureRegion(new TextureAtlas(Gdx.files.internal("blockage/spike/spike.pack")).findRegion("thorn1"), 1, 62, 45 ,167);
-        stateSmall = new TextureRegion(new TextureAtlas(Gdx.files.internal("blockage/spike/spike.pack")).findRegion("thorn2"), 1, 1, 37 ,59);
+        stateBig = new TextureRegion(new TextureAtlas(Gdx.files.internal("images/blockage/spike/spike.pack")).findRegion("thorn1"), 1, 62, 45 ,167);
+        stateSmall = new TextureRegion(new TextureAtlas(Gdx.files.internal("images/blockage/spike/spike.pack")).findRegion("thorn2"), 1, 1, 37 ,59);
 
         setBounds(getX(), getY(), 30 / StartClass.PPM * 2, 120 / StartClass.PPM * 2);
         setRegion(stateBig);

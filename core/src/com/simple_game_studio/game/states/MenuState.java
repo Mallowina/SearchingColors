@@ -2,6 +2,7 @@ package com.simple_game_studio.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +30,9 @@ public class MenuState implements Screen {
     private Texture background;
     private OrthographicCamera camera;
 
+    /*Add music*/
+    private Music music;
+
     /****************************/
     public Stage stage;
     private Viewport viewport;
@@ -47,11 +51,15 @@ public class MenuState implements Screen {
 
         this.game = game;
 
-        background = new Texture("main_menu_bg.png");
+        background = new Texture("images/main_menu_bg.png");
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, StartClass.V_WIDTH, StartClass.V_HEIGHT);
 
+        music = StartClass.manager.get("audio/music/menu_theme.mp3", Music.class);
+        music.setLooping(true);
+        music.setVolume(150);
+        music.play();
 
         /************************************************************************/
         viewport = new FitViewport(StartClass.V_WIDTH, StartClass.V_HEIGHT, new OrthographicCamera());
@@ -61,7 +69,7 @@ public class MenuState implements Screen {
 
         font = new BitmapFont();
 
-        buttonsAtlas = new TextureAtlas("buttons/packs/button_executed.pack");
+        buttonsAtlas = new TextureAtlas("images/buttons/packs/button_executed.pack");
         buttonSkin = new Skin();
         buttonSkin.addRegions(buttonsAtlas);
         TextButton.TextButtonStyle style1 = new TextButton.TextButtonStyle();
@@ -72,7 +80,7 @@ public class MenuState implements Screen {
         buttonSettings.setHeight(40);
         buttonSettings.setWidth(40);
 
-        buttonsAtlas = new TextureAtlas("buttons/packs/button_main_menu.pack");
+        buttonsAtlas = new TextureAtlas("images/buttons/packs/button_main_menu.pack");
         buttonSkin = new Skin();
         buttonSkin.addRegions(buttonsAtlas);
         TextButton.TextButtonStyle style2 = new TextButton.TextButtonStyle();

@@ -1,4 +1,4 @@
-package com.simple_game_studio.game.Sprites;
+package com.simple_game_studio.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
