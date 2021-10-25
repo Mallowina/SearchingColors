@@ -1,6 +1,7 @@
 package com.simple_game_studio.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -42,8 +44,11 @@ public class SettingsScreen implements Disposable {
     public SettingsScreen(SpriteBatch sb) {
         preferences = new AppPreferences();
 
-        viewport = new FitViewport(StartClass.V_WIDTH, StartClass.V_HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(StartClass.V_WIDTH / 1.3f, StartClass.V_HEIGHT / 1.3f);
+//        viewport = new FitViewport(StartClass.V_WIDTH / 1.3f, StartClass.V_HEIGHT / 1.3f, new OrthographicCamera());
         stage = new Stage(viewport, sb);
+        viewport.setScreenBounds(0, 150, StartClass.V_WIDTH, StartClass.V_HEIGHT);
+
 
 
 
@@ -53,8 +58,6 @@ public class SettingsScreen implements Disposable {
         musicCheckbox = new CheckBox(null, skin);
         volumeSoundSlider = new Slider( 0f, 1f, 0.1f, false, skin);
         soundEffectsCheckbox = new CheckBox(null, skin);
-
-
 
         //music
         volumeMusicSlider.setValue(preferences.getMusicVolume());
@@ -98,37 +101,37 @@ public class SettingsScreen implements Disposable {
         });
 
         Table table = new Table();
-        table.setPosition(StartClass.V_WIDTH - 300, StartClass.V_HEIGHT - 100);
+        table.setFillParent(true);
 
         titleLabel = new Label("Preferences", skin);
-        volumeMusicLabel = new Label("Громкость музыки", skin);
-        volumeSoundLabel = new Label("Громкость звука", skin);
-        musicOnOffLabel = new Label("Музыка", skin);
-        soundOnOffLabel = new Label("Звуки", skin);
+        volumeMusicLabel = new Label("Volume Music", skin);
+        volumeSoundLabel = new Label("Volume Sound", skin);
+        musicOnOffLabel = new Label("Music", skin);
+        soundOnOffLabel = new Label("Sounds", skin);
 
-        table.add(titleLabel);
+
+
+        table.add(titleLabel).colspan(2).align(Align.center);
         table.row();
-        table.add(volumeMusicLabel);
+        table.add(volumeMusicLabel).minSize(150, 30);
         table.add(volumeMusicSlider);
         table.row();
-        table.add(musicOnOffLabel);
+        table.add(musicOnOffLabel).minSize(150, 30);
         table.add(musicCheckbox);
         table.row();
-        table.add(volumeSoundLabel);
+        table.add(volumeSoundLabel).minSize(150, 30);
         table.add(volumeSoundSlider);
         table.row();
-        table.add(soundOnOffLabel);
+        table.add(soundOnOffLabel).minSize(150, 30);
         table.add(soundEffectsCheckbox);
 
         stage.addActor(table);
 
 
-        Gdx.input.setInputProcessor(stage);
+//        Gdx.input.setInputProcessor(stage);
     }
 
-    public void update(float dt) {
 
-    }
 
     @Override
     public void dispose() {

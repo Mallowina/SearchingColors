@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.simple_game_studio.game.StartClass;
 
@@ -27,8 +28,9 @@ public class BackScreen implements Disposable {
     private TextButton btnBack; //** the button - the only actor in program **//
 
     public BackScreen(SpriteBatch sb, final StartClass game) {
-        viewport = new FitViewport(StartClass.V_WIDTH, StartClass.V_HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(StartClass.V_WIDTH, StartClass.V_HEIGHT);
         stage = new Stage(viewport, sb);
+        viewport.setScreenBounds(0, 0, StartClass.V_WIDTH, 150);
 
         Gdx.input.setInputProcessor(stage);
 

@@ -30,15 +30,15 @@ public class LevelsScreen implements Disposable {
     private TextButton btn4;
     private TextButton btn5;
     private TextButton btn6;
-    private TextButton btnBack;
 
     private int BUTTON_SIZE = 40;
 
     public LevelsScreen(SpriteBatch sb, final StartClass game) {
-        viewport = new FitViewport(StartClass.V_WIDTH, StartClass.V_HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(StartClass.V_WIDTH, StartClass.V_HEIGHT);
         stage = new Stage(viewport, sb);
+        viewport.setScreenBounds(0, 150, StartClass.V_WIDTH, StartClass.V_HEIGHT);
 
-        Gdx.input.setInputProcessor(stage);
+//        Gdx.input.setInputProcessor(stage);
 
         font = new BitmapFont();
         buttonsAtlas = new TextureAtlas("images/buttons/packs/btn_change_lvl.pack");
@@ -81,30 +81,6 @@ public class LevelsScreen implements Disposable {
         style6.font = font;
         btn6 = new TextButton("", style6); //** Button text and style **//
 
-
-
-        /*button back*/
-        buttonsAtlas = new TextureAtlas("images/buttons/packs/button_executed.pack");
-        buttonSkin = new Skin();
-        buttonSkin.addRegions(buttonsAtlas);
-        font = new BitmapFont();
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.up = buttonSkin.getDrawable("previous");
-        style.font = font;
-
-        btnBack = new TextButton("", style);
-        btnBack.setHeight(40);
-        btnBack.setWidth(40);
-        btnBack.setPosition(btnBack.getWidth() - 20, StartClass.V_HEIGHT - btnBack.getHeight() - 20);
-
-        btnBack.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("go to main menu");
-                game.changeState(StartClass.PrevStates.MAIN_MENU);
-            }
-        });
-
         btn1.setWidth(BUTTON_SIZE);
         btn1.setWidth(BUTTON_SIZE);
         btn1.setPosition(btn1.getWidth() + 100, StartClass.V_HEIGHT - btn1.getHeight() - 60);
@@ -120,7 +96,6 @@ public class LevelsScreen implements Disposable {
 
 
         Group group = new Group();
-        group.addActor(btnBack);
         group.addActor(btn1);
 
         stage.addActor(group);

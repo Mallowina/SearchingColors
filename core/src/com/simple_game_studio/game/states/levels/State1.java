@@ -39,9 +39,6 @@ public class State1 extends LevelCreator {
     @Override
     public void update(float dt) {
         super.update(dt);
-
-
-
         spike.update(dt);
     }
 
