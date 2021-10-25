@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -13,13 +12,13 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.simple_game_studio.game.Screens.Control;
-import com.simple_game_studio.game.Sprites.Player;
+import com.simple_game_studio.game.screens.ControlScreen;
+import com.simple_game_studio.game.sprites.Player;
 import com.simple_game_studio.game.StartClass;
 
 public abstract class LevelCreator implements Screen {
     protected StartClass game;
-    protected Control control;
+    protected ControlScreen controlScreen;
 
     protected OrthographicCamera camera;
     protected Viewport gamePort;
@@ -56,7 +55,7 @@ public abstract class LevelCreator implements Screen {
 //        gestureDetector = new GestureDetector(new PlayerGestureDetector(player));
 //        Gdx.input.setInputProcessor(gestureDetector);
 
-        control = new Control(game.batch);
+        controlScreen = new ControlScreen(game.batch);
 
     }
 
@@ -98,12 +97,13 @@ public abstract class LevelCreator implements Screen {
         game.batch.end();
 
         if (!StartClass.STORY_STATE) {
-            control.update(delta);
-            control.stage.draw();
+            controlScreen.update(delta);
+            controlScreen.stage.draw();
         } else {
-            Control.UP = false;
-            Control.LEFT = false;
-            Control.RIGHT = false;
+            /**Control buttons hide**/
+            ControlScreen.UP = false;
+            ControlScreen.LEFT = false;
+            ControlScreen.RIGHT = false;
         }
 
         player.update(delta);

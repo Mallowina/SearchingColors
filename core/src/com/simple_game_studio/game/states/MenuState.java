@@ -2,11 +2,13 @@ package com.simple_game_studio.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -28,6 +30,9 @@ public class MenuState implements Screen {
     private Texture background;
     private OrthographicCamera camera;
 
+    /*Add music*/
+    private Music music;
+
     /****************************/
     public Stage stage;
     private Viewport viewport;
@@ -46,11 +51,15 @@ public class MenuState implements Screen {
 
         this.game = game;
 
-        background = new Texture("main_menu_bg.png");
+        background = new Texture("images/main_menu_bg.png");
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, StartClass.V_WIDTH, StartClass.V_HEIGHT);
 
+        music = StartClass.manager.get("audio/music/menu_theme.mp3", Music.class);
+        music.setLooping(true);
+        music.setVolume(150);
+        music.play();
 
         /************************************************************************/
         viewport = new FitViewport(StartClass.V_WIDTH, StartClass.V_HEIGHT, new OrthographicCamera());
@@ -58,30 +67,29 @@ public class MenuState implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-        Table table = new Table();
-        table.top();
-        table.setFillParent(true);
+        font = new BitmapFont();
 
-
-        buttonsAtlas = new TextureAtlas("buttons_main_menu/buttons_main_menu.pack");
+        buttonsAtlas = new TextureAtlas("images/buttons/packs/button_executed.pack");
         buttonSkin = new Skin();
         buttonSkin.addRegions(buttonsAtlas);
-        font = new BitmapFont();
         TextButton.TextButtonStyle style1 = new TextButton.TextButtonStyle();
         style1.up = buttonSkin.getDrawable("settings");
         style1.font = font;
 
         buttonSettings = new TextButton("", style1);
-        buttonSettings.setHeight(20);
-        buttonSettings.setWidth(20);
+        buttonSettings.setHeight(40);
+        buttonSettings.setWidth(40);
 
+        buttonsAtlas = new TextureAtlas("images/buttons/packs/button_main_menu.pack");
+        buttonSkin = new Skin();
+        buttonSkin.addRegions(buttonsAtlas);
         TextButton.TextButtonStyle style2 = new TextButton.TextButtonStyle();
         style2.up = buttonSkin.getDrawable("start");
         style2.font = font;
 
         buttonStart = new TextButton("", style2);
-        buttonStart.setHeight(20);
-        buttonStart.setWidth(40);
+        buttonStart.setHeight(140);
+        buttonStart.setWidth(160);
 
         buttonSettings.addListener(new ClickListener() {
             @Override
@@ -98,11 +106,17 @@ public class MenuState implements Screen {
             }
         });
 
-        table.add(buttonSettings).expandX().padTop(10);
-        table.row();
-        table.add(buttonStart).expandX().padTop(100);
 
-        stage.addActor(table);
+        /*BUTTONS POSITION*/
+        buttonSettings.setPosition(StartClass.V_WIDTH - 70, StartClass.V_HEIGHT - 60);
+        buttonStart.setPosition(StartClass.V_WIDTH / 2 - buttonStart.getWidth() / 2, 20);
+
+        Group btn_menu_group = new Group();
+        btn_menu_group.addActor(buttonSettings);
+        btn_menu_group.addActor(buttonStart);
+
+
+        stage.addActor(btn_menu_group);
     }
 
 

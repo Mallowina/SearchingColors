@@ -1,8 +1,6 @@
-package com.simple_game_studio.game.Sprites;
+package com.simple_game_studio.game.sprites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.simple_game_studio.game.Screens.Control;
+import com.simple_game_studio.game.screens.ControlScreen;
 import com.simple_game_studio.game.StartClass;
 
 public class Player extends Sprite {
@@ -33,7 +31,7 @@ public class Player extends Sprite {
 
     public Player(World world) {
         this.world = world;
-        atlas = new TextureAtlas(Gdx.files.internal("player/player.pack"));
+        atlas = new TextureAtlas(Gdx.files.internal("images/player/player.pack"));
         definePlayer();
 
 
@@ -81,11 +79,11 @@ public class Player extends Sprite {
 
 
     public void update(float dt) {
-        if (Control.RIGHT && b2body.getLinearVelocity().x <= 2) b2body.applyLinearImpulse(new Vector2(0.1f, 0), b2body.getWorldCenter(), true);
-        else if (Control.LEFT && b2body.getLinearVelocity().x >= -2) b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
-        if (Control.UP) {
+        if (ControlScreen.RIGHT && b2body.getLinearVelocity().x <= 2) b2body.applyLinearImpulse(new Vector2(0.1f, 0), b2body.getWorldCenter(), true);
+        else if (ControlScreen.LEFT && b2body.getLinearVelocity().x >= -2) b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
+        if (ControlScreen.UP) {
             b2body.applyLinearImpulse(new Vector2(0,4f), b2body.getWorldCenter(), true);
-            Control.UP = false;
+            ControlScreen.UP = false;
         }
 
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
