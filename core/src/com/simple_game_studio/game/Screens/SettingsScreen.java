@@ -49,9 +49,6 @@ public class SettingsScreen implements Disposable {
         stage = new Stage(viewport, sb);
         viewport.setScreenBounds(0, 150, StartClass.V_WIDTH, StartClass.V_HEIGHT);
 
-
-
-
         skin = new Skin(Gdx.files.internal("default/skin/uiskin.json"));
 
         volumeMusicSlider = new Slider( 0f, 1f, 0.1f, false, skin);
@@ -109,8 +106,6 @@ public class SettingsScreen implements Disposable {
         musicOnOffLabel = new Label("Music", skin);
         soundOnOffLabel = new Label("Sounds", skin);
 
-
-
         table.add(titleLabel).colspan(2).align(Align.center);
         table.row();
         table.add(volumeMusicLabel).minSize(150, 30);
@@ -126,9 +121,6 @@ public class SettingsScreen implements Disposable {
         table.add(soundEffectsCheckbox);
 
         stage.addActor(table);
-
-
-//        Gdx.input.setInputProcessor(stage);
     }
 
 

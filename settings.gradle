@@ -1,1 +1,2 @@
+include ':gdx-stb-truetype'
 include 'android', 'core', 'desktop'

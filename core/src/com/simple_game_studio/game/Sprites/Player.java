@@ -34,18 +34,15 @@ public class Player extends Sprite {
         atlas = new TextureAtlas(Gdx.files.internal("images/player/player.pack"));
         definePlayer();
 
-
         playerStand = new TextureRegion(atlas.findRegion("little_mario"), 1, 1, 16, 16);
 
         setBounds(0, 0, 16/StartClass.PPM*2, 16/StartClass.PPM*2);
         setRegion(playerStand);
-
-
     }
 
     public void definePlayer() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100 / StartClass.PPM, 100 / StartClass.PPM);
+        bdef.position.set(100 / StartClass.PPM, 250 / StartClass.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

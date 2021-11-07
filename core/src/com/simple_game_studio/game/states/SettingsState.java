@@ -35,7 +35,6 @@ public class SettingsState implements Screen {
         InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
         inputMultiplexer.addProcessor(0, settingsScreen.stage);
         inputMultiplexer.addProcessor(1, backScreen.stage);
-
     }
 
 
@@ -62,8 +61,6 @@ public class SettingsState implements Screen {
         backScreen.stage.getViewport().apply();
         backScreen.stage.act();
         backScreen.stage.draw();
-
-
     }
 
 

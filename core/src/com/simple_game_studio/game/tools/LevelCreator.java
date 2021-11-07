@@ -13,12 +13,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.simple_game_studio.game.screens.ControlScreen;
+import com.simple_game_studio.game.screens.StoryScreen;
 import com.simple_game_studio.game.sprites.Player;
 import com.simple_game_studio.game.StartClass;
 
 public abstract class LevelCreator implements Screen {
     protected StartClass game;
     protected ControlScreen controlScreen;
+    protected StoryScreen storyScreen;
 
     protected OrthographicCamera camera;
     protected Viewport gamePort;
@@ -31,6 +33,7 @@ public abstract class LevelCreator implements Screen {
     //Box2d variables
     protected World world;
     protected Box2DDebugRenderer b2dr;
+    protected B2WorldCreator creator;
 
     //sprites
     protected Player player;
@@ -40,23 +43,16 @@ public abstract class LevelCreator implements Screen {
 
     public LevelCreator(StartClass game) {
         this.game = game;
-
-        camera = new OrthographicCamera();
-        gamePort = new FitViewport(StartClass.V_WIDTH /StartClass.PPM, StartClass.V_HEIGHT/StartClass.PPM, camera);
-        camera.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
-
-        mapLoader = new TmxMapLoader();
-
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
+        camera = new OrthographicCamera();
+        gamePort = new FitViewport(StartClass.V_WIDTH /StartClass.PPM, StartClass.V_HEIGHT/StartClass.PPM, camera);
+        camera.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2 + 0.5f, 0);
+
+        mapLoader = new TmxMapLoader();
         player = new Player(world);
-
-//        gestureDetector = new GestureDetector(new PlayerGestureDetector(player));
-//        Gdx.input.setInputProcessor(gestureDetector);
-
         controlScreen = new ControlScreen(game.batch);
-
     }
 
     @Override
@@ -71,9 +67,7 @@ public abstract class LevelCreator implements Screen {
         handleInput(dt);
 
         world.step(1/60f, 6, 2);
-
         camera.position.x = player.b2body.getPosition().x;
-
         camera.update();
         renderer.setView(camera);
     }
@@ -99,14 +93,17 @@ public abstract class LevelCreator implements Screen {
         if (!StartClass.STORY_STATE) {
             controlScreen.update(delta);
             controlScreen.stage.draw();
+            player.update(delta);
         } else {
-            /**Control buttons hide**/
-            ControlScreen.UP = false;
-            ControlScreen.LEFT = false;
-            ControlScreen.RIGHT = false;
+            storyScreen.stage.draw();
+            storyScreen.update(delta);
+            /*Control buttons hide*/
+//            ControlScreen.UP = false;
+//            ControlScreen.LEFT = false;
+//            ControlScreen.RIGHT = false;
         }
 
-        player.update(delta);
+
     }
 
     @Override

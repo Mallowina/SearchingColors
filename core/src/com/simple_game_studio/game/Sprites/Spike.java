@@ -29,8 +29,8 @@ public class Spike extends Sprite {
         this.world = world;
         this.mapWorld = mapWorld;
 
-        currentX = x / 100;
-        currentY = y / 100;
+        currentX = x;
+        currentY = y;
 
         setPosition(x, y);
 
@@ -46,7 +46,6 @@ public class Spike extends Sprite {
 
     public void update(float dt) {
         stateTime += dt;
-
         if (stateTime <= 2.5) {
             if (stateTime > 1 && stateTime < 2) {
                 changeSize(true);
@@ -80,21 +79,16 @@ public class Spike extends Sprite {
     }
 
     public void changeSize(boolean isBigSize) {
-
-
         if (isBigSize) {
-            b2body.setTransform(currentX, currentY, 0);
+            b2body.setTransform(currentX, currentY+0.8f, 0);
             setPosition(b2body.getPosition().x - getWidth() / 2 - 0.1f, b2body.getPosition().y - getHeight() / 2 - 0.5f);
             setBounds(getX(), getY(), 30 / StartClass.PPM * 2, 120 / StartClass.PPM * 2);
             setRegion(stateBig);
         } else {
-            b2body.setTransform(currentX, currentY+1, 0);
+            b2body.setTransform(currentX, currentY+1.8f, 0);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 - 0.5f);
             setBounds(getX(), getY(), 25 / StartClass.PPM * 2, 40 / StartClass.PPM * 2);
             setRegion(stateSmall);
         }
     }
-
-
-
 }

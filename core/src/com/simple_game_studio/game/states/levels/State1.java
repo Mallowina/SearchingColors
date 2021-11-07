@@ -2,28 +2,23 @@ package com.simple_game_studio.game.states.levels;
 
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.simple_game_studio.game.screens.ControlScreen;
+import com.simple_game_studio.game.screens.StoryScreen;
 import com.simple_game_studio.game.sprites.Spike;
 import com.simple_game_studio.game.StartClass;
 import com.simple_game_studio.game.tools.B2WorldCreator;
 import com.simple_game_studio.game.tools.WorldContactListener;
-
 import com.simple_game_studio.game.tools.LevelCreator;
 
 public class State1 extends LevelCreator {
-
-    private Spike spike;
-
     public State1(StartClass game) {
         super(game);
-        System.out.println("start lvl1");
-
         map = mapLoader.load("images/levels/lvl1/lvl1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1/StartClass.PPM);
-        new B2WorldCreator(world, map);
-        controlScreen = new ControlScreen(game.batch);
         world.setContactListener(new WorldContactListener());
 
-        spike = new Spike(world, map, 50, 180);
+        renderer = new OrthogonalTiledMapRenderer(map, 1/StartClass.PPM);
+        controlScreen = new ControlScreen(game.batch);
+        creator = new B2WorldCreator(world, map);
+        storyScreen = new StoryScreen(game.batch, "story1");
     }
 
     @Override
@@ -39,7 +34,9 @@ public class State1 extends LevelCreator {
     @Override
     public void update(float dt) {
         super.update(dt);
-        spike.update(dt);
+        for (Spike spike : creator.getSpikes()) {
+            spike.update(dt);
+        }
     }
 
     @Override
@@ -48,9 +45,13 @@ public class State1 extends LevelCreator {
 
         b2dr.render(world, camera.combined);
         game.batch.setProjectionMatrix(camera.combined);
+
         game.batch.begin();
-        spike.draw(game.batch);
+        for (Spike spike : creator.getSpikes()) {
+            spike.draw(game.batch);
+        }
         game.batch.end();
+//        storyScreen.stage.draw();
     }
 
     @Override

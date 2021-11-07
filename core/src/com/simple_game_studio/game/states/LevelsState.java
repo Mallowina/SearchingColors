@@ -39,9 +39,6 @@ public class LevelsState implements Screen {
         inputMultiplexer.addProcessor(1, backScreen.stage);
     }
 
-    public void update(float dt) {
-
-    }
 
     @Override
     public void show() {
@@ -63,8 +60,6 @@ public class LevelsState implements Screen {
         backScreen.stage.getViewport().apply();
         backScreen.stage.act();
         backScreen.stage.draw();
-
-//        update(delta);
     }
 
     @Override
