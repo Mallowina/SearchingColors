@@ -103,6 +103,9 @@ public class LevelsScreen implements Disposable {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        font.dispose();
+        buttonsAtlas.dispose();
+        buttonSkin.dispose();
     }
 }

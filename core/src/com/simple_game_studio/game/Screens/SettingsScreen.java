@@ -2,6 +2,7 @@ package com.simple_game_studio.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -41,8 +42,12 @@ public class SettingsScreen implements Disposable {
     final Slider volumeSoundSlider;
     final CheckBox soundEffectsCheckbox;
 
+
+    private Music music;
+
     public SettingsScreen(SpriteBatch sb) {
         preferences = new AppPreferences();
+        music = StartClass.manager.get("audio/music/menu_theme.mp3", Music.class);
 
         viewport = new FitViewport(StartClass.V_WIDTH / 1.3f, StartClass.V_HEIGHT / 1.3f);
 //        viewport = new FitViewport(StartClass.V_WIDTH / 1.3f, StartClass.V_HEIGHT / 1.3f, new OrthographicCamera());
@@ -62,8 +67,9 @@ public class SettingsScreen implements Disposable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (volumeMusicSlider.isDragging()) {
-                    preferences.setMusicVolume( volumeMusicSlider.getValue() );
-                } else System.out.println("nothing");
+                    preferences.setMusicVolume( volumeMusicSlider.getValue());
+                    music.setVolume(volumeMusicSlider.getValue());
+                }
             }
         });
 
@@ -73,6 +79,13 @@ public class SettingsScreen implements Disposable {
             public void changed(ChangeEvent event, Actor actor) {
                 boolean enabled = musicCheckbox.isChecked();
                 preferences.setMusicEnabled(enabled);
+                if (enabled) {
+                    music.setLooping(true);
+                    music.setVolume(preferences.getMusicVolume());
+                    music.play();
+                } else {
+                    music.pause();
+                }
             }
         });
 
@@ -91,7 +104,6 @@ public class SettingsScreen implements Disposable {
         soundEffectsCheckbox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-//                Gdx.graphics.setContinuousRendering(soundEffectsCheckbox.isChecked());
                 boolean enabled = soundEffectsCheckbox.isChecked();
                 preferences.setSoundEffectsEnabled(enabled);
             }
@@ -127,6 +139,7 @@ public class SettingsScreen implements Disposable {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        skin.dispose();
     }
 }

@@ -16,6 +16,7 @@ import com.simple_game_studio.game.screens.ControlScreen;
 import com.simple_game_studio.game.screens.StoryScreen;
 import com.simple_game_studio.game.sprites.Player;
 import com.simple_game_studio.game.StartClass;
+import com.simple_game_studio.game.states.GameOverState;
 
 public abstract class LevelCreator implements Screen {
     protected StartClass game;
@@ -67,7 +68,11 @@ public abstract class LevelCreator implements Screen {
         handleInput(dt);
 
         world.step(1/60f, 6, 2);
-        camera.position.x = player.b2body.getPosition().x;
+
+        if (player.currentState != Player.State.DEAD)
+            if (player.b2body.getPosition().x > 4)
+                camera.position.x = player.b2body.getPosition().x;
+
         camera.update();
         renderer.setView(camera);
     }
@@ -84,26 +89,33 @@ public abstract class LevelCreator implements Screen {
 
         //render our Box2DDebugLines
         b2dr.render(world, camera.combined);
+        b2dr.setDrawBodies(false);
 
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         player.draw(game.batch);
         game.batch.end();
 
-        if (!StartClass.STORY_STATE) {
+        if (!StartClass.STORY) {
             controlScreen.update(delta);
             controlScreen.stage.draw();
             player.update(delta);
         } else {
             storyScreen.stage.draw();
             storyScreen.update(delta);
-            /*Control buttons hide*/
-//            ControlScreen.UP = false;
-//            ControlScreen.LEFT = false;
-//            ControlScreen.RIGHT = false;
         }
 
+        if (gameOver()) {
+            game.setScreen(new GameOverState(game));
+            dispose();
+        }
 
+    }
+
+    public boolean gameOver(){
+        if (player.currentState == Player.State.DEAD && player.getStateTimer() > 2) {
+            return true;
+        } else return false;
     }
 
     @Override

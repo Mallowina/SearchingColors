@@ -70,7 +70,7 @@ public class Spike extends Sprite {
 
         fdef.filter.categoryBits = StartClass.SPIKE_BIT;
         fdef.filter.maskBits = StartClass.GROUND_BIT |
-                                StartClass.PLAYER_BIT;
+                                StartClass.PLAYER_HEAD_BIT;
 
         fdef.shape = rectangle;
 

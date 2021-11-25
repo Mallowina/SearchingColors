@@ -1,13 +1,9 @@
 package com.simple_game_studio.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,13 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.simple_game_studio.game.StartClass;
 
-import java.awt.Font;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOError;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class StoryScreen implements Disposable {
@@ -82,15 +72,15 @@ public class StoryScreen implements Disposable {
     }
 
     public void update(float dt) {
-        if (StartClass.STORY_STATE && Gdx.input.justTouched() && counter_phrases < length){
+        if (StartClass.STORY && Gdx.input.justTouched() && counter_phrases < length){
             phrases.setText(story[counter_phrases]);
             counter_phrases++;
-        } else if (counter_phrases == length && Gdx.input.justTouched()) StartClass.STORY_STATE = false;
+        } else if (counter_phrases == length && Gdx.input.justTouched()) StartClass.STORY = false;
     }
 
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }

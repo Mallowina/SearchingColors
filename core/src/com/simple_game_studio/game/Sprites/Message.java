@@ -2,14 +2,7 @@ package com.simple_game_studio.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Filter;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.simple_game_studio.game.StartClass;
 
@@ -21,9 +14,9 @@ public class Message extends InteractiveTileObject{
     }
 
     @Override
-    public void onRightHit() {
+    public void onHeadHit() {
         Gdx.app.log("Message", "Collision");
         setCategoryFilter(StartClass.DESTROYED_BIT);
-        StartClass.STORY_STATE = true;
+        StartClass.STORY = true;
     }
 }

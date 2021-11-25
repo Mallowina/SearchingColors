@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.simple_game_studio.game.sprites.Cristal;
 import com.simple_game_studio.game.sprites.Ground;
 import com.simple_game_studio.game.sprites.Message;
 import com.simple_game_studio.game.StartClass;
@@ -26,22 +27,28 @@ public class B2WorldCreator {
         Body body;
 
         //Create brick bodies/fixtures
-        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             new Ground(world, map, rect);
         }
 
         //Create message bodies/fixtures
-        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             new Message(world, map, rect);
         }
 
         //create all spikes
         spikes = new Array<Spike>();
-        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             spikes.add(new Spike(world, map, rect.getX() / StartClass.PPM, rect.getY() / StartClass.PPM));
+        }
+
+        //Create cristal bodies/fixtures
+        for (MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            new Cristal(world, map, rect);
         }
     }
 }
